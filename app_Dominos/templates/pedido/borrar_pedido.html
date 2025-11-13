@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 text-center p-4 bg-light rounded shadow">
+    <h2 class="text-danger mb-4">Borrar Pedido</h2>
+    <p>¿Estás seguro de que deseas eliminar el pedido del cliente <strong>{{ pedido.nombre_cliente }}</strong>?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <a href="{% url 'ver_pedido' %}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+    </form>
+</div>
+{% endblock %}

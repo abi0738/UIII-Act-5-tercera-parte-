@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 p-4 bg-light rounded shadow">
+    <h2 class="text-center text-warning">Actualizar Pedido</h2>
+    <form method="POST" action="{% url 'realizar_actualizacion_pedido' pedido.id_pedido %}">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Cliente:</label>
+            <select name="id_cliente" class="form-select" required>
+                {% for c in clientes %}
+                    <option value="{{ c.id_cliente }}" {% if c.id_cliente == pedido.id_cliente.id_cliente %}selected{% endif %}>
+                        {{ c.nombre }} {{ c.apellido }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Producto:</label>
+            <input type="text" name="producto" class="form-control" value="{{ pedido.producto }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fecha del Pedido:</label>
+            <input type="date" name="fecha_pedido" class="form-control" value="{{ pedido.fecha_pedido|date:'Y-m-d' }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Estado:</label>
+            <select name="estado" class="form-select">
+                <option value="Pendiente" {% if pedido.estado == "Pendiente" %}selected{% endif %}>Pendiente</option>
+                <option value="En preparación" {% if pedido.estado == "En preparación" %}selected{% endif %}>En preparación</option>
+                <option value="Entregado" {% if pedido.estado == "Entregado" %}selected{% endif %}>Entregado</option>
+                <option value="Cancelado" {% if pedido.estado == "Cancelado" %}selected{% endif %}>Cancelado</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Total:</label>
+            <input type="number" name="total" class="form-control" step="0.01" value="{{ pedido.total }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Dirección:</label>
+            <input type="text" name="direccion" class="form-control" value="{{ pedido.direccion }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Método de Pago:</label>
+            <input type="text" name="metodo_pago" class="form-control" value="{{ pedido.metodo_pago }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Actualizar Pedido</button>
+    </form>
+</div>
+{% endblock %}

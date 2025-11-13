@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 p-4 bg-light rounded shadow">
+    <h2 class="text-center text-warning">Actualizar Producto</h2>
+
+    <form method="POST" action="{% url 'realizar_actualizacion_producto' producto.id_producto %}">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Cliente:</label>
+            <select name="cliente" class="form-select" required>
+                {% for c in clientes %}
+                    <option value="{{ c.id_cliente }}" {% if c.id_cliente == producto.cliente.id_cliente %}selected{% endif %}>
+                        {{ c.nombre }} {{ c.apellido }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Nombre del Producto:</label>
+            <input type="text" name="nombre" class="form-control" value="{{ producto.nombre }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Descripción:</label>
+            <textarea name="descripcion" class="form-control" rows="3" required>{{ producto.descripcion }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Precio:</label>
+            <input type="number" name="precio" class="form-control" step="0.01" value="{{ producto.precio }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Tamaño:</label>
+            <select name="tamaño" class="form-select" required>
+                <option value="Chico" {% if producto.tamaño == "Chico" %}selected{% endif %}>Chico</option>
+                <option value="Mediano" {% if producto.tamaño == "Mediano" %}selected{% endif %}>Mediano</option>
+                <option value="Grande" {% if producto.tamaño == "Grande" %}selected{% endif %}>Grande</option>
+                <option value="Familiar" {% if producto.tamaño == "Familiar" %}selected{% endif %}>Familiar</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Categoría:</label>
+            <input type="text" name="categoria" class="form-control" value="{{ producto.categoria }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Disponibilidad:</label>
+            <select name="disponibilidad" class="form-select" required>
+                <option value="True" {% if producto.disponibilidad %}selected{% endif %}>Disponible</option>
+                <option value="False" {% if not producto.disponibilidad %}selected{% endif %}>No disponible</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Actualizar Producto</button>
+    </form>
+</div>
+{% endblock %}

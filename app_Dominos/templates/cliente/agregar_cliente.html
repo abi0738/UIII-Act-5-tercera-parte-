@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Agregar Cliente</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Nombre</label>
+      <input class="form-control" name="nombre" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Apellido</label>
+      <input class="form-control" name="apellido" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Teléfono</label>
+      <input class="form-control" name="telefono">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input class="form-control" name="email" type="email">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Dirección</label>
+      <input class="form-control" name="direccion">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Ciudad</label>
+      <input class="form-control" name="ciudad">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Fecha de Registro</label>
+      <input class="form-control" name="fecha_registro" type="date">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Metodo Pago</label>
+        <input class="form-control" name="metodo_pago_preferido">
+    </div>
+    <button class="btn btn-primary" type="submit">Guardar</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 p-4 bg-light rounded shadow">
+    <h2 class="text-center text-primary">Agregar Producto</h2>
+    <form method="POST" action="{% url 'agregar_producto' %}">
+        {% csrf_token %}
+
+        <!-- Cliente -->
+        <div class="mb-3">
+            <label class="form-label">Cliente:</label>
+            <select name="id_cliente" class="form-control" required>
+                {% for c in clientes %}
+                    <option value="{{ c.id_cliente }}">{{ c.nombre }} {{ c.apellido }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Nombre -->
+        <div class="mb-3">
+            <label class="form-label">Nombre del Producto:</label>
+            <input type="text" name="nombre" class="form-control" placeholder="Ej. Pizza de Pepperoni" required>
+        </div>
+
+        <!-- Descripción -->
+        <div class="mb-3">
+            <label class="form-label">Descripción:</label>
+            <textarea name="descripcion" class="form-control" rows="3" placeholder="Describe el producto..." required></textarea>
+        </div>
+
+        <!-- Precio -->
+        <div class="mb-3">
+            <label class="form-label">Precio:</label>
+            <input type="number" name="precio" class="form-control" step="0.01" required>
+        </div>
+
+        <!-- Tamaño -->
+        <div class="mb-3">
+            <label class="form-label">Tamaño:</label>
+            <input type="text" name="tamaño" class="form-control" placeholder="Ej. Mediana, Grande, Familiar" required>
+        </div>
+
+        <!-- Categoría -->
+        <div class="mb-3">
+            <label class="form-label">Categoría:</label>
+            <input type="text" name="categoria" class="form-control" placeholder="Ej. Pizza, Bebida, Postre" required>
+        </div>
+
+        <!-- Disponibilidad -->
+        <div class="mb-3">
+            <label class="form-label">Disponibilidad:</label>
+            <select name="disponibilidad" class="form-select" required>
+                <option value="True">Disponible</option>
+                <option value="">No disponible</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">fecha creacion :</label>
+            <input type="date" name="p.fecha_creacion" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">Guardar Producto</button>
+    </form>
+</div>
+{% endblock %}

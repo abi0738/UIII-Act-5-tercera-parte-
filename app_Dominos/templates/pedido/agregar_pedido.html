@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 p-4 bg-light rounded shadow">
+    <h2 class="text-center text-primary">Agregar Pedido</h2>
+    <form method="POST" action="{% url 'agregar_pedido' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Cliente</label>
+            <select name="id_cliente" class="form-control" required>
+                {% for c in clientes %}
+                    <option value="{{ c.id_cliente }}">{{ c.nombre }} {{ c.apellido }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Dirección:</label>
+            <input type="text" name="direccion" class="form-control" required>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label">Producto Pedido:</label>
+            <input type="text" name="producto" class="form-control" placeholder="Ej. Pizza de Pepperoni" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Precio Total:</label>
+            <input type="number" name="total" class="form-control" step="0.01" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Fecha del Pedido:</label>
+            <input type="date" name="fecha_pedido" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Estado:</label>
+            <select name="estado" class="form-select">
+                <option value="Pendiente" {% if pedido.estado == "Pendiente" %}selected{% endif %}>Pendiente</option>
+                <option value="En preparación" {% if pedido.estado == "En preparación" %}selected{% endif %}>En preparación</option>
+                <option value="Entregado" {% if pedido.estado == "Entregado" %}selected{% endif %}>Entregado</option>
+                <option value="Cancelado" {% if pedido.estado == "Cancelado" %}selected{% endif %}>Cancelado</option>
+            </select>
+        </div>
+
+
+
+        <div class="mb-3">
+            <label class="form-label">Metodo de Pago:</label>
+            <input type="text" name="metodo_pago" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">Guardar Pedido</button>
+    </form>
+</div>
+{% endblock %}
